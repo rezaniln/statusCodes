@@ -1,23 +1,28 @@
 [
     { "id":404,
       "message": " صفحه مورد نظر پیدا نشد :(",
-      "img": ""
+      "img": "404",
+      "color":"white"
     },
     { "id":403,
       "message": "دسترسی غیر مجاز",
-      "img": "~/assets/gifs/0ec0dbf1e9a008acb9955d3246970e15.gif"
+      "img": "301edited",
+      "color":"#a64006"
     },
     { "id":500,
       "message": "خطای داخلی سرور",
-      "img": ""
+      "img": "500",
+      "color":"white"
     },
     { "id":502,
       "message": "درگاه خراب است!",
-      "img": ""
+      "img": "502edited",
+      "color":"black"
     },
     { "id":301,
       "message": " صفحه منتقل شده است",
-      "img": ""
+      "img": "403new",
+      "color":"white"
     }
   
 ]
