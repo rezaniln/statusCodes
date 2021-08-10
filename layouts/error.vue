@@ -3,43 +3,64 @@
     <div>
       <b-row class="m-0">
         <b-col cols="9" class="h1container">
-          <h1 class="zoomInUp">{{ test.id }}</h1>
-          <h4>{{ test.message }}</h4>
-          <b-button to="/" class="button" pill variant="primary">بازگشت به صفحه اصلی</b-button>
+          <h1 class="zoomInUp">{{error.statusCode}}</h1>
+          <h4 v-if="error.statusCode==404">
+            صفحه مورد نظر پیدا نشد
+          </h4>
+          <h4 v-else-if="error.statusCode==403">
+            دسترسی غیر مجاز
+          </h4>
+          <h4 v-else-if="error.statusCode==500">
+            خطای داخلی سرور
+          </h4>
+          <h4 v-else-if="error.statusCode==502">
+                درگاه خراب است
+          </h4>
+          <h4 v-else-if="error.statusCode==301">
+                صفحه منتقل شده است
+          </h4>
+          <b-button class="button" pill variant="primary" @click="back">بازگشت به صفحه اصلی</b-button>
         </b-col>
       </b-row>
-      <div  class="mgContainer">
-          <img class="img1" :src="require(`~/assets/png/${img}.png`)" alt="" />
+      <div   class="mgContainer">
+          <img v-if="error.statusCode==404" src="~/assets/png/404.png" alt="">
+          <img v-else-if="error.statusCode==403" src="~/assets/png/301edited.png" alt="">
+          <img v-else-if="error.statusCode==500" src="~/assets/png/500.png" alt="">
+          <img v-else-if="error.statusCode==502" src="~/assets/png/502edited.png" alt="">
+          <img v-else-if="error.statusCode==301" src="~/assets/png/403new.png" alt="">
         </div>
     </div>
   </div>
 </template>
 
 <script>
-import statusData from '~/assets/statusCodes.json'
+
 export default {
-  data() {
+  layout: 'empty',
+ 
+  props: {
+    error: {
+      type: Object,
+      default: null,
+      required:true
+    }
+  },
+  data () {
     return {
-      list: statusData,
-      statusCode: this.$route.params.slug,
+      
+      statusCode: this.error.statusCode,
       test: '',
       img: null,
     }
   },
-  created() {
-    this.test = this.list.filter((er) => er.id === this.statusCode)[0]
-    this.img = this.list.filter((er) => er.id === this.statusCode)[0].img
+  methods: {
+    back() {
+    location.reload()
+  }
   },
-  // mounted() {
-  //   if(test.id===404){
-
-  //       document.getElementById('mainContainer').style.background='white';
-
-  //   }
-  // },
+ 
 }
 </script>
-style.backdropFilter='unset'
 
 <style lang="scss" scoped>
 img {
